@@ -1,15 +1,6 @@
 import axios from "axios";
-
-// async function getUser() {
-//   const res = await axios.get("http://localhost:3000/api/user");
-//   // console.log(res.data);
-//   return res.data;
-// }
-
-
 import { PrismaClient } from "@prisma/client";
-
-const client = new PrismaClient();
+import client from "@/db";
 
 async function getLastUser() {
   try {
@@ -30,6 +21,12 @@ async function getLastUser() {
     await client.$disconnect();
   }
 }
+
+// async function getUser() {
+//   const res = await axios.get("http://localhost:3000/api/user");
+//   // console.log(res.data);
+//   return res.data;
+// }
 
 export default async function Home() {
   const userDetails = await getLastUser();
