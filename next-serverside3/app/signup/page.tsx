@@ -1,13 +1,16 @@
 "use client";
 
-import axios from "axios";
+// import axios from "axios";
 import { ChangeEventHandler, useState } from "react";
-import { useRouter } from "next/navigation"; // Correct import
+import { useRouter } from "next/navigation";
+import { Signup } from "../actions/user";
 
-export default function Signup() {
+export default function SignupComponent() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter(); // Correct usage of useRouter
+  const [error, setError] = useState("");
+
+  const router = useRouter();
 
   return (
     <div className="h-screen flex justify-center flex-col">
@@ -34,14 +37,19 @@ export default function Signup() {
               />
               <button
                 onClick={async () => {
-                  const response = await axios.post(
-                    "http://localhost:3000/api/user",
-                    { username, password }
-                  );
+                  // const response = await axios.post(
+                  //   "http://localhost:3000/api/user",
+                  //   { username, password }
+                  // );
 
-                  if (response.status === 200) {
-                    router.push("./");
-                  }
+                  // if (response.status === 200) {
+                  //   router.push("./");
+                  // }
+
+                  // Directly call the server action
+                  await Signup(username, password);
+
+                  router.push("./"); // Redirect on success
                 }}
                 type="button"
                 className="mt-8 w-full text-white bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
